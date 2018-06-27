@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace JWTWebApiAuth.Services
 {
+    /// <summary>
+    /// Class for user signin operations
+    /// </summary>
     public class SignInManagementService : ISignInManagementService
     {
         private readonly SignInManager<IdentityUser> _signInManager;

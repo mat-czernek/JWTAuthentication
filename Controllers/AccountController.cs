@@ -8,6 +8,9 @@ using JWTWebApiAuth.Services;
 namespace JWTWebApiAuth.Controllers
 {
     [Route("api/[controller]")]
+    /// <summary>
+    /// Simple class used to manage users in API
+    /// </summary>
     public class AccountController : Controller
     {
         private readonly IUserManagementService _userManagementService;
@@ -53,7 +56,12 @@ namespace JWTWebApiAuth.Controllers
             if (result.Succeeded)
             {
                 var appUser = _userManagementService.GetByEmail(credentials.Email);
-                return _jwtManagement.GenerateJwtToken(credentials.Email, appUser.Result);
+
+                if(appUser == null)
+                    return _resultManagementService.Result("Invalid user.", "400");
+
+                // That's the part when we generate JWT authentication token for user
+                return _jwtManagement.GenerateJwtToken(appUser.Result);
             }
             
             return _resultManagementService.Result("Invalid login attempt.", "400");

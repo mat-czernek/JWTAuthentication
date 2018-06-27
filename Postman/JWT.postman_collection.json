@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "4dfd581a-8e70-49d7-8e6f-b11883b9173c",
+		"name": "JWT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "JWT Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"john.doe@mail.com\",\n\t\"password\": \"Ykc5*4myVd49NFRdWQZzc28HkYxv#Jer\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Account/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Account",
+						"register"
+					]
+				},
+				"description": "Using this request we may register new user in API. See body section to setu the user name and password."
+			},
+			"response": []
+		},
+		{
+			"name": "JWT SignIn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db84d340-b2d1-401d-ab07-9de5ebe95bb8",
+						"type": "text/javascript",
+						"exec": [
+							"pm.environment.set(\"AUTHENTICATION_TOKEN\", pm.response.text());",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"john.doe@mail.com\",\n\t\"password\": \"Ykc5*4myVd49NFRdWQZzc28HkYxv#Jer\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Account/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JWT Add contatc",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AUTHENTICATION_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstName\":\"Johnny\", \"lastName\":\"Walker\", \"email\":\"johhny.w@mail.com\", \"phoneNumber\":\"888 888 888\"}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/contacts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JWT Get all items",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{AUTHENTICATION_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5000/api/contacts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

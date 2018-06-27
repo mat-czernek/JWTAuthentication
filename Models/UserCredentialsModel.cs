@@ -2,7 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JWTWebApiAuth.Models
 {
-
+    /// <summary>
+    /// Model used to authenticate user in API
+    /// </summary>
     public class UserCredentialsModel
     {
         [Required]

@@ -9,6 +9,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace JWTWebApiAuth.Services
 {
+    /// <summary>
+    /// Class used to handle operations on JWT on user side
+    /// </summary>
     public class JwtManagement : IJwtManagement
     {
         private readonly JWTSettings _jwtSettings;
@@ -18,17 +21,27 @@ namespace JWTWebApiAuth.Services
             _jwtSettings = jwtSettings.Value;
         }
 
-        public object GenerateJwtToken(string email, IdentityUser user)
+
+        /// <summary>
+        /// Method generates JWT authentication token. It's used to authenticate user in API.
+        /// </summary>
+        /// <param name="user">Signed in user data</param>
+        /// <returns>The JWT Security Token</returns>
+        public object GenerateJwtToken(IdentityUser user)
         {
+            // list of registered claims that we want to use
             var registeredClaims  = new []
             {
                 new Claim (ClaimTypes.Name, user.Email)  
             };
 
+            // security key generated based on the secret key stored in appsettings.json file
             var securityKey = new  SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));
 
+            // generates singing credentials
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+            // build JWT security token
             var secuirtyToken = new JwtSecurityToken(
 
                 issuer: _jwtSettings.Issuer,
@@ -39,9 +52,11 @@ namespace JWTWebApiAuth.Services
                 
             );
 
+            // additional data in payload
             secuirtyToken.Payload["DateGenerated"] = DateTime.Now;
             secuirtyToken.Payload["Some other data"] = "Test data";
 
+            // generate the JWT token
             return new JwtSecurityTokenHandler().WriteToken(secuirtyToken);
         }
     }

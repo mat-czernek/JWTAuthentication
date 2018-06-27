@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JWTWebApiAuth.Services
 {
+    /// <summary>
+    /// Class for user operations management
+    /// </summary>
     public class UserManagementService : IUserManagementService
     {
         private readonly UserManager<IdentityUser> _userManager;

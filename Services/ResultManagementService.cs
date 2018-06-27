@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JWTWebApiAuth.Services
 {
+    /// <summary>
+    /// Class for operations results management
+    /// </summary>
     public class ResultManagementService : IResultManagementService
     {
         public JsonResult Result(string message, string code)

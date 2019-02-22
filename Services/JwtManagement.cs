@@ -38,7 +38,7 @@ namespace JWTWebApiAuth.Services
             // security key generated based on the secret key stored in appsettings.json file
             var securityKey = new  SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));
 
-            // generates singing credentials
+            // generates singing credentials to verify the JWT sign
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             // build JWT security token
